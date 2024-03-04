@@ -1,0 +1,37 @@
+﻿@model Practica20240304.Models.Factura
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Factura</h4>
+<hr />
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="form-group col-3">
+            <label asp-for="Correlativo" class="control-label"></label>
+            <input asp-for="Correlativo" class="form-control" />
+            <span asp-validation-for="Correlativo" class="text-danger"></span>
+        </div>
+        <div class="form-group col-3">
+            <label asp-for="Fecha" class="control-label"></label>
+            <input asp-for="Fecha" class="form-control" />
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
+    </div>
+   <div class="row row-cols-md-12">
+        @await Html.PartialAsync("_DetFactura", Model.DetFacturas)
+       @*  <partial name="_DetFactura" for="DetFacturas" /> *@
+   </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a class="btn btn-primary" asp-action="Index">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

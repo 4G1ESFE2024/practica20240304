@@ -1,0 +1,91 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+@model IEnumerable<DetFactura>
+<input type="hidden" name="accion" value="@ViewBag.Accion" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @if (ViewBag.Accion == "Create" || ViewBag.Accion == "Edit")
+                {
+                    <button type="submit" class="btn btn-primary" formaction="@Url.Action("AgregarDetalles")">Agregar</button>
+                }
+               
+            </th>
+        </tr>
+    
+    </thead>
+    <tbody>
+        @{
+            int index = -1;
+        }
+        @if(Model!=null && Model.Count() > 0)
+        {
+            @foreach (var item in Model)
+            {
+                index++;
+               // var hidde = "table";
+                if (item.Id < 0)
+                {
+                    <tr style="display:none">
+                        <td>
+                            <input type="hidden" value="@item.Id" name="DetFacturas[@index].Id">
+                            <input class="form-control" type="text" name="DetFacturas[@index].Producto" value="@item.Producto">
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" name="DetFacturas[@index].Cantidad" value="@item.Cantidad">
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="DetFacturas[@index].Precio" value="@item.Precio">
+                        </td>
+                        <td>
+                            @if (ViewBag.Accion == "Create" || ViewBag.Accion == "Edit")
+                            {
+                                <button name="index" value="@index" class="btn btn-primary" type="submit" formaction="@Url.Action("EliminarDetalles")">Eliminar</button>
+                            }
+
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr >
+                        <td>
+                            <input type="hidden" value="@item.Id" name="DetFacturas[@index].Id">
+                            <input class="form-control" type="text" name="DetFacturas[@index].Producto" value="@item.Producto">
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" name="DetFacturas[@index].Cantidad" value="@item.Cantidad">
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="DetFacturas[@index].Precio" value="@item.Precio">
+                        </td>
+                        <td>
+                            @if (ViewBag.Accion == "Create" || ViewBag.Accion == "Edit")
+                            {
+                                <button name="index" value="@index" class="btn btn-primary" type="submit" formaction="@Url.Action("EliminarDetalles")">Eliminar</button>
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+
+            }
+        }
+        
+    </tbody>
+</table>
